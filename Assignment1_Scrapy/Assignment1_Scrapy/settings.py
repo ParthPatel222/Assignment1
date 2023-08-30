@@ -99,4 +99,5 @@ CLOSESPIDER_PAGECOUNT = 1000
 DEPTH_PRIORITY = 1  # Set higher priority to shallower levels
 SCHEDULER_DISK_QUEUE = 'scrapy.squeues.PickleFifoDiskQueue'  # Use FIFO queue
 SCHEDULER_MEMORY_QUEUE = 'scrapy.squeues.FifoMemoryQueue'     # Use FIFO queue
+LOG_LEVEL = 'DEBUG'
 

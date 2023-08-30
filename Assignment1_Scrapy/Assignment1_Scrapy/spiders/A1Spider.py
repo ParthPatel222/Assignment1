@@ -1,5 +1,5 @@
 import re
-
+from bs4 import BeautifulSoup
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
@@ -13,6 +13,7 @@ class A1_Spider(CrawlSpider):
         Rule(LinkExtractor(allow=('/page/\d+',)), callback='parse_items'),
     )
 
+
     def parse_items(self, response):
         entry = dict.fromkeys(['pageid', 'url', 'title', 'body', 'emails'])
 
@@ -25,8 +26,9 @@ class A1_Spider(CrawlSpider):
         # Extracting title
         entry['title'] = response.css('title::text').get()
 
-        # Extracting body
-        entry['body'] = ' '.join(response.css('body p::text').getall())
+        # Extracting body using BeautifulSoup
+        soup = BeautifulSoup(response.text, 'html.parser')
+        entry['body'] = soup.get_text()
 
         # Extracting emails using regular expression
         email_pattern = r'[\w\.-]+@[\w\.-]+'
