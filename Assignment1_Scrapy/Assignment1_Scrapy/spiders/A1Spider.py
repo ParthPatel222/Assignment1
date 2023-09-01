@@ -10,7 +10,7 @@ class A1_Spider(CrawlSpider):
     start_urls = ["https://www.kennesaw.edu/"]
 
     rules = (
-        Rule(LinkExtractor(allow=('/page/\d+',)), callback='parse_items'),
+        Rule(LinkExtractor(allow=('kennesaw.edu',)), callback='parse_items'),
     )
 
 
@@ -18,7 +18,7 @@ class A1_Spider(CrawlSpider):
         entry = dict.fromkeys(['pageid', 'url', 'title', 'body', 'emails'])
 
         # Extracting pageid from the URL or response
-        entry['pageid'] = re.search(r'/page/(\d+)/', response.url).group(1)
+        entry['pageid'] = hash(response.url)
 
         # Extracting URL
         entry['url'] = response.url
