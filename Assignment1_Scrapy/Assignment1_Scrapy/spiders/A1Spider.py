@@ -31,7 +31,7 @@ class A1_Spider(CrawlSpider):
         entry['body'] = soup.get_text()
 
         # Extracting emails using regular expression
-        email_pattern = r'[\w\.-]+@[\w\.-]+'
-        entry['emails'] = re.findall(email_pattern, response.text)
-
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        email_text = ' '.join([str(tag) for tag in soup.find_all()])
+        entry['emails'] = re.findall(regex, email_text)
         yield entry
